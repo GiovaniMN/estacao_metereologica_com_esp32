@@ -78,44 +78,6 @@ export function WeatherDashboard() {
         />
         
         <WeatherCard
-          title="Pressão"
-          value={formatValue(weatherData?.pressao, 2)}
-          unit="hPa"
-          icon={Gauge}
-          color="pressure"
-          isLoading={isLoading}
-        />
-        
-        <WeatherCard
-          title="Altitude"
-          value={formatValue(weatherData?.altitude, 0)}
-          unit="m"
-          icon={Mountain}
-          color="altitude"
-          isLoading={isLoading}
-        />
-        
-        {/* Weather Cards Grid */}
-      <div className="weather-grid">
-        <WeatherCard
-          title="Temperatura"
-          value={formatValue(weatherData?.temperatura)}
-          unit="°C"
-          icon={Thermometer}
-          color="temperature"
-          isLoading={isLoading}
-        />
-        
-        <WeatherCard
-          title="Umidade"
-          value={formatValue(weatherData?.umidade, 0)}
-          unit="%"
-          icon={Droplets}
-          color="humidity"
-          isLoading={isLoading}
-        />
-        
-        <WeatherCard
           title="Precipitação"
           value={formatValue(weatherData?.chuva_mm)}
           unit="mm"
@@ -124,24 +86,6 @@ export function WeatherDashboard() {
           isLoading={isLoading}
         />
       </div>
-    </div>
-  );
-}
-      </div>
-
-      {/* Configuration Notice */}
-      {firebaseConfig.apiKey === "your-api-key" && (
-        <div className="mt-12 p-6 glass-card border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-orange-500/5">
-          <h3 className="text-lg font-semibold mb-2 text-yellow-700 dark:text-yellow-300">
-            ⚠️ Configuração do Firebase Necessária
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            Para conectar com seus dados reais, substitua a configuração do Firebase no arquivo 
-            <code className="mx-1 px-2 py-1 bg-muted rounded text-xs">WeatherDashboard.tsx</code> 
-            pelos dados do seu projeto Firebase Realtime Database.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
