@@ -52,6 +52,27 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Weather-specific colors
+				temperature: {
+					DEFAULT: 'hsl(var(--temperature))',
+					foreground: 'hsl(var(--temperature-foreground))'
+				},
+				humidity: {
+					DEFAULT: 'hsl(var(--humidity))',
+					foreground: 'hsl(var(--humidity-foreground))'
+				},
+				pressure: {
+					DEFAULT: 'hsl(var(--pressure))',
+					foreground: 'hsl(var(--pressure-foreground))'
+				},
+				altitude: {
+					DEFAULT: 'hsl(var(--altitude))',
+					foreground: 'hsl(var(--altitude-foreground))'
+				},
+				precipitation: {
+					DEFAULT: 'hsl(var(--precipitation))',
+					foreground: 'hsl(var(--precipitation-foreground))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
