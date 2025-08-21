@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { WeatherCard } from "./WeatherCard";
-import { Thermometer, Droplets, CloudRain } from "lucide-react";
+import { Thermometer, Droplets, CloudRain, Gauge, Mountain } from "lucide-react"; // Importa os ícones
 import { database } from "../firebaseConfig"; // Importa a configuração real
 import { ref, onValue, off } from "firebase/database";
 
@@ -9,7 +9,9 @@ import { ref, onValue, off } from "firebase/database";
 interface WeatherData {
   temperatura: number;
   umidade: number;
-  chuva_mm: number; // Alterado de precipitacao para chuva_mm
+  chuva_mm: number;
+  pressao: number; // Adicionado
+  altitude: number; // Adicionado
 }
 
 export function WeatherDashboard() {
@@ -74,6 +76,24 @@ export function WeatherDashboard() {
           unit="%"
           icon={Droplets}
           color="humidity"
+          isLoading={isLoading}
+        />
+
+        <WeatherCard
+          title="Pressão"
+          value={formatValue(weatherData?.pressao, 2)}
+          unit="hPa"
+          icon={Gauge}
+          color="pressure"
+          isLoading={isLoading}
+        />
+        
+        <WeatherCard
+          title="Altitude"
+          value={formatValue(weatherData?.altitude, 0)}
+          unit="m"
+          icon={Mountain}
+          color="altitude"
           isLoading={isLoading}
         />
         
