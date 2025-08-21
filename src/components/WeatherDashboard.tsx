@@ -1,27 +1,15 @@
 import { useEffect, useState } from "react";
 import { WeatherCard } from "./WeatherCard";
-import { Thermometer, Droplets, Gauge, Mountain, CloudRain } from "lucide-react";
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, off } from "firebase/database";
+import { Thermometer, Droplets, CloudRain } from "lucide-react";
+import { database } from "../firebaseConfig"; // Importa a configuração real
+import { ref, onValue, off } from "firebase/database";
 
-// Firebase configuration - usuário deve substituir pelos dados do seu projeto
-const firebaseConfig = {
-  // Substitua pela sua configuração do Firebase
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  databaseURL: "https://your-project-default-rtdb.firebaseio.com/",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "your-app-id"
-};
+// A configuração do Firebase foi movida para firebaseConfig.js
 
 interface WeatherData {
   temperatura: number;
   umidade: number;
-  pressao: number;
-  altitude: number;
-  precipitacao: number;
+  chuva_mm: number; // Alterado de precipitacao para chuva_mm
 }
 
 export function WeatherDashboard() {
@@ -30,38 +18,21 @@ export function WeatherDashboard() {
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
   useEffect(() => {
-    // Initialize Firebase apenas se a configuração estiver definida
-    if (firebaseConfig.apiKey !== "your-api-key") {
-      const app = initializeApp(firebaseConfig);
-      const database = getDatabase(app);
-      const weatherRef = ref(database, '/'); // ou o caminho específico dos seus dados
+    const weatherRef = ref(database, 'sensores/'); // Caminho para os dados dos sensores
 
-      const unsubscribe = onValue(weatherRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setWeatherData(data);
-          setLastUpdate(new Date());
-        }
-        setIsLoading(false);
-      });
-
-      return () => off(weatherRef, 'value', unsubscribe);
-    } else {
-      // Dados mock para demonstração
-      const mockData: WeatherData = {
-        temperatura: 24.5,
-        umidade: 65,
-        pressao: 1013.25,
-        altitude: 850,
-        precipitacao: 2.3
-      };
-      
-      setTimeout(() => {
-        setWeatherData(mockData);
+    const unsubscribe = onValue(weatherRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setWeatherData(data);
         setLastUpdate(new Date());
-        setIsLoading(false);
-      }, 1000);
-    }
+      }
+      setIsLoading(false);
+    }, (error) => {
+      console.error("Erro ao buscar dados do Firebase:", error);
+      setIsLoading(false);
+    });
+
+    return () => off(weatherRef, 'value', unsubscribe);
   }, []);
 
   const formatValue = (value: number | undefined, decimals: number = 1): string => {
@@ -124,14 +95,38 @@ export function WeatherDashboard() {
           isLoading={isLoading}
         />
         
+        {/* Weather Cards Grid */}
+      <div className="weather-grid">
+        <WeatherCard
+          title="Temperatura"
+          value={formatValue(weatherData?.temperatura)}
+          unit="°C"
+          icon={Thermometer}
+          color="temperature"
+          isLoading={isLoading}
+        />
+        
+        <WeatherCard
+          title="Umidade"
+          value={formatValue(weatherData?.umidade, 0)}
+          unit="%"
+          icon={Droplets}
+          color="humidity"
+          isLoading={isLoading}
+        />
+        
         <WeatherCard
           title="Precipitação"
-          value={formatValue(weatherData?.precipitacao)}
+          value={formatValue(weatherData?.chuva_mm)}
           unit="mm"
           icon={CloudRain}
           color="precipitation"
           isLoading={isLoading}
         />
+      </div>
+    </div>
+  );
+}
       </div>
 
       {/* Configuration Notice */}
