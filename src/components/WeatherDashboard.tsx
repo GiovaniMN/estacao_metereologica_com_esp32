@@ -46,7 +46,7 @@ export function WeatherDashboard() {
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-white from-primary to-accent bg-clip-text text-transparent">
           Estação Meteorológica
         </h1>
         <p className="text-lg text-muted-foreground mb-2">

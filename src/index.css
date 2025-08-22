@@ -145,13 +145,15 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground min-h-screen;
-    background: var(--gradient-weather);
+    /*background: var(--gradient-weather);*/
+    background: rgb(30, 30, 30);
   }
 }
 
 @layer utilities {
   .glass-card {
-    background: var(--glass-bg);
+    /*background: var(--glass-bg);*/
+    background: whitesmoke;
     backdrop-filter: var(--glass-backdrop);
     border: 1px solid var(--glass-border);
   }
