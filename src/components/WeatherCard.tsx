@@ -20,11 +20,11 @@ export function WeatherCard({
   isLoading = false 
 }: WeatherCardProps) {
   const colorClasses = {
-    temperature: "from-temperature/20 to-temperature/5 border-temperature/30",
-    humidity: "from-humidity/20 to-humidity/5 border-humidity/30",
-    pressure: "from-pressure/20 to-pressure/5 border-pressure/30",
-    altitude: "from-altitude/20 to-altitude/5 border-altitude/30",
-    precipitation: "from-precipitation/20 to-precipitation/5 border-precipitation/30",
+    temperature: "border-temperature/30",
+    humidity: "border-humidity/30",
+    pressure: "border-pressure/30",
+    altitude: "border-altitude/30",
+    precipitation: "border-precipitation/30",
   };
 
   const iconColorClasses = {
@@ -36,11 +36,13 @@ export function WeatherCard({
   };
 
   return (
-    <Card className={cn(
-      "glass-card p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg",
-      "bg-gradient-to-br border-2",
-      colorClasses[color]
-    )}>
+    <Card
+      className={cn(
+        "glass-card p-6 transition-all duration-300 hover:scale-105 hover:shadow-lg",
+        "border-2",
+        colorClasses[color]
+      )}
+    >
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
@@ -57,10 +59,12 @@ export function WeatherCard({
             )}
           </div>
         </div>
-        <div className={cn(
-          "p-3 rounded-full bg-background/50 backdrop-blur-sm",
-          iconColorClasses[color]
-        )}>
+        <div
+          className={cn(
+            "p-3 rounded-full bg-background/50 backdrop-blur-sm",
+            iconColorClasses[color]
+          )}
+        >
           <Icon className="h-6 w-6" />
         </div>
       </div>

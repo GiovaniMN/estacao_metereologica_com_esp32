@@ -2,44 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    /* Weather Dashboard Theme */
-    --background: 220 15% 95%;
-    --foreground: 220 20% 15%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 15%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 15%;
-
-    --primary: 200 85% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 200 20% 92%;
-    --secondary-foreground: 200 30% 20%;
-
-    --muted: 200 15% 90%;
-    --muted-foreground: 200 10% 45%;
-
-    --accent: 180 85% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 200 20% 85%;
-    --input: 200 20% 85%;
-    --ring: 200 85% 50%;
 
     --radius: 1rem;
 
-    /* Weather-specific colors */
+    /* Cores dos climas padrão (mantidas em HSL) */
     --temperature: 25 85% 55%;
     --temperature-foreground: 0 0% 100%;
     
@@ -54,87 +22,6 @@ All colors MUST be HSL.
     
     --precipitation: 220 85% 55%;
     --precipitation-foreground: 0 0% 100%;
-
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(200 85% 50%), hsl(180 85% 55%));
-    --gradient-weather: linear-gradient(135deg, hsl(220 50% 85%), hsl(200 60% 90%));
-    --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
-    
-    /* Glass effect */
-    --glass-bg: rgba(255, 255, 255, 0.25);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-backdrop: blur(20px);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 220 25% 8%;
-    --foreground: 220 15% 92%;
-
-    --card: 220 20% 10%;
-    --card-foreground: 220 15% 92%;
-
-    --popover: 220 20% 10%;
-    --popover-foreground: 220 15% 92%;
-
-    --primary: 200 85% 55%;
-    --primary-foreground: 220 25% 8%;
-
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 220 15% 92%;
-
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 60%;
-
-    --accent: 180 85% 60%;
-    --accent-foreground: 220 25% 8%;
-
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 220 15% 92%;
-
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 200 85% 55%;
-
-    /* Dark weather colors */
-    --temperature: 25 85% 60%;
-    --humidity: 200 85% 55%;
-    --pressure: 270 75% 65%;
-    --altitude: 120 60% 50%;
-    --precipitation: 220 85% 60%;
-
-    /* Dark gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(200 85% 55%), hsl(180 85% 60%));
-    --gradient-weather: linear-gradient(135deg, hsl(220 30% 12%), hsl(200 25% 15%));
-    --gradient-card: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-    
-    /* Dark glass effect */
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-backdrop: blur(20px);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -145,26 +32,24 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground min-h-screen;
-    /*background: var(--gradient-weather);*/
     background: rgb(30, 30, 30);
   }
 }
 
 @layer utilities {
   .glass-card {
-    /*background: var(--glass-bg);*/
     background: whitesmoke;
     backdrop-filter: var(--glass-backdrop);
     border: 1px solid var(--glass-border);
-  }
-  
-  .gradient-primary {
-    background: var(--gradient-primary);
   }
   
   .weather-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
+    color: black;
+  }
+  .texto {
+    color: rgb(125, 125, 125);
   }
 }
