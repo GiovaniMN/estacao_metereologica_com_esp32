@@ -7,7 +7,6 @@
 
     --radius: 1rem;
 
-    /* Cores dos climas padrão (mantidas em HSL) */
     --temperature: 25 85% 55%;
     --temperature-foreground: 0 0% 100%;
     
@@ -45,12 +44,20 @@
   
   .weather-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 40vw, 400px), 1fr));
     min-height: 50rem;
     gap: 2rem;
     color: black;
   }
+  
   .texto {
     color: rgb(125, 125, 125);
+  }
+}
+
+@media (max-width: 768px) {
+  .weather-grid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
