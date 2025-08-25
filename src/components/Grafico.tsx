@@ -1,23 +1,24 @@
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 
-const data = [
-  { time: "10:00", temp: 24 },
-  { time: "10:10", temp: 25 },
-  { time: "10:20", temp: 26 },
-  { time: "10:30", temp: 27 },
-];
+interface WeatherChartProps {
+  data: { time: string; value: number }[];
+  dataKey: string;
+  unit: string;
+  stroke: string;
+  title: string;
+}
 
-export default function TemperatureChart() {
+export default function WeatherChart({ data, dataKey, unit, stroke, title }: WeatherChartProps) {
   return (
     <div className="glass-card p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Temperatura em Tempo Real</h2>
+      <h2 className="text-xl font-bold mb-4">{title}</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="time" />
-          <YAxis unit="°C" />
+          <YAxis unit={unit} />
           <Tooltip />
-          <Line type="monotone" dataKey="temp" stroke="#ff7300" strokeWidth={2} dot={false} />
+          <Line type="monotone" dataKey={dataKey} stroke={stroke} strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>

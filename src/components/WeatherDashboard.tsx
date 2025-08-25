@@ -3,7 +3,7 @@ import { WeatherCard } from "./WeatherCard";
 import { Thermometer, Droplets, CloudRain, Gauge, Mountain } from "lucide-react"; // Importa os ícones
 import { database } from "../firebaseConfig"; // Importa a configuração real
 import { ref, onValue, off } from "firebase/database";
-import TemperatureChart from "@/components/Grafico";
+import WeatherChart from "@/components/Grafico"; // Alterado para WeatherChart
 
 // A configuração do Firebase foi movida para firebaseConfig.js
 
@@ -11,9 +11,53 @@ interface WeatherData {
   temperatura: number;
   umidade: number;
   chuva_mm: number;
-  pressao: number; // Adicionado
-  altitude: number; // Adicionado
+  pressao: number;
+  altitude: number;
 }
+
+// Dados de exemplo para os gráficos
+const tempData = [
+  { time: "10:00", value: 24 },
+  { time: "10:10", value: 25 },
+  { time: "10:20", value: 26 },
+  { time: "10:30", value: 27 },
+];
+
+const humidityData = [
+  { time: "10:00", value: 60 },
+  { time: "10:10", value: 62 },
+  { time: "10:20", value: 61 },
+  { time: "10:30", value: 63 },
+];
+
+const pressureData = [
+  { time: "10:00", value: 1012.5 },
+  { time: "10:10", value: 1012.8 },
+  { time: "10:20", value: 1012.6 },
+  { time: "10:30", value: 1013.0 },
+];
+
+const altitudeData = [
+    { time: "10:00", value: 100 },
+    { time: "10:10", value: 105 },
+    { time: "10:20", value: 110 },
+    { time: "10:30", value: 115 },
+  ];
+
+  const precipitationData = [
+    { time: "10:00", value: 0 },
+    { time: "10:10", value: 0 },
+    { time: "10:20", value: 2 },
+    { time: "10:30", value: 5 },
+  ];
+
+  const chartColors = {
+    temperature: "hsl(25, 85%, 55%)",
+    humidity: "hsl(200, 85%, 50%)",
+    pressure: "hsl(270, 75%, 60%)",
+    altitude: "hsl(120, 60%, 45%)",
+    precipitation: "hsl(220, 85%, 55%)",
+  };
 
 export function WeatherDashboard() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -70,7 +114,13 @@ export function WeatherDashboard() {
           color="temperature"
           isLoading={isLoading}
         >
-          <TemperatureChart />
+          <WeatherChart 
+            data={tempData} 
+            dataKey="value" 
+            unit="°C" 
+            stroke={chartColors.temperature}
+            title="Temperatura em Tempo Real"
+          />
         </WeatherCard>
         
         <WeatherCard
@@ -80,7 +130,15 @@ export function WeatherDashboard() {
           icon={Droplets}
           color="humidity"
           isLoading={isLoading}
-        />
+        >
+          <WeatherChart 
+            data={humidityData} 
+            dataKey="value" 
+            unit="%" 
+            stroke={chartColors.humidity}
+            title="Umidade em Tempo Real"
+          />
+        </WeatherCard>
 
         <WeatherCard
           title="Pressão"
@@ -89,7 +147,15 @@ export function WeatherDashboard() {
           icon={Gauge}
           color="pressure"
           isLoading={isLoading}
-        />
+        >
+          <WeatherChart 
+            data={pressureData} 
+            dataKey="value" 
+            unit="hPa" 
+            stroke={chartColors.pressure}
+            title="Pressão em Tempo Real"
+          />
+        </WeatherCard>
         
         <WeatherCard
           title="Altitude"
@@ -98,7 +164,15 @@ export function WeatherDashboard() {
           icon={Mountain}
           color="altitude"
           isLoading={isLoading}
-        />
+        >
+          <WeatherChart 
+            data={altitudeData} 
+            dataKey="value" 
+            unit="m" 
+            stroke={chartColors.altitude}
+            title="Altitude em Tempo Real"
+          />
+        </WeatherCard>
         
         <WeatherCard
           title="Precipitação"
@@ -107,7 +181,15 @@ export function WeatherDashboard() {
           icon={CloudRain}
           color="precipitation"
           isLoading={isLoading}
-        />
+        >
+            <WeatherChart
+                data={precipitationData}
+                dataKey="value"
+                unit="mm"
+                stroke={chartColors.precipitation}
+                title="Precipitação em Tempo Real"
+            />
+        </WeatherCard>
       </div>
     </div>
   );
