@@ -9,6 +9,7 @@ interface WeatherCardProps {
   icon: LucideIcon;
   color: "temperature" | "humidity" | "pressure" | "altitude" | "precipitation";
   isLoading?: boolean;
+  children?: React.ReactNode; // 👈 suporte a conteúdo extra
 }
 
 export function WeatherCard({ 
@@ -17,7 +18,8 @@ export function WeatherCard({
   unit, 
   icon: Icon, 
   color, 
-  isLoading = false 
+  isLoading = false,
+  children,
 }: WeatherCardProps) {
   const colorClasses = {
     temperature: "border-temperature/30",
@@ -68,6 +70,9 @@ export function WeatherCard({
           <Icon className="h-6 w-6" />
         </div>
       </div>
+
+      {/* 👇 qualquer conteúdo extra (ex: gráfico) vem aqui */}
+      {children && <div className="mt-4">{children}</div>}
     </Card>
   );
 }

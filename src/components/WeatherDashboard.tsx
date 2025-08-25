@@ -3,6 +3,7 @@ import { WeatherCard } from "./WeatherCard";
 import { Thermometer, Droplets, CloudRain, Gauge, Mountain } from "lucide-react"; // Importa os ícones
 import { database } from "../firebaseConfig"; // Importa a configuração real
 import { ref, onValue, off } from "firebase/database";
+import TemperatureChart from "@/components/Grafico";
 
 // A configuração do Firebase foi movida para firebaseConfig.js
 
@@ -68,7 +69,9 @@ export function WeatherDashboard() {
           icon={Thermometer}
           color="temperature"
           isLoading={isLoading}
-        />
+        >
+          <TemperatureChart />
+        </WeatherCard>
         
         <WeatherCard
           title="Umidade"
