@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface WeatherCardProps {
@@ -9,18 +10,20 @@ interface WeatherCardProps {
   icon: LucideIcon;
   color: "temperature" | "humidity" | "pressure" | "altitude" | "precipitation";
   isLoading?: boolean;
-  children?: React.ReactNode; // 👈 suporte a conteúdo extra
+  children?: React.ReactNode;
 }
 
-export function WeatherCard({ 
-  title, 
-  value, 
-  unit, 
-  icon: Icon, 
-  color, 
+export function WeatherCard({
+  title,
+  value,
+  unit,
+  icon: Icon,
+  color,
   isLoading = false,
   children,
 }: WeatherCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const colorClasses = {
     temperature: "border-temperature/30",
     humidity: "border-humidity/30",
@@ -61,18 +64,45 @@ export function WeatherCard({
             )}
           </div>
         </div>
-        <div
-          className={cn(
-            "p-3 rounded-full bg-background/50 backdrop-blur-sm",
-            iconColorClasses[color]
+
+        <div className="flex items-center space-x-2">
+          <div
+            className={cn(
+              "p-3 rounded-full bg-background/50 backdrop-blur-sm",
+              iconColorClasses[color]
+            )}
+          >
+            <Icon className="h-6 w-6" />
+          </div>
+
+          {/* botão só aparece se houver conteúdo extra */}
+          {children && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="p-2 rounded-full hover:bg-muted/50 transition-colors"
+            >
+              <ChevronDown
+                className={cn(
+                  "h-5 w-5 text-muted-foreground transition-transform duration-300",
+                  isExpanded && "rotate-180"
+                )}
+              />
+            </button>
           )}
-        >
-          <Icon className="h-6 w-6" />
         </div>
       </div>
 
-      {/* 👇 qualquer conteúdo extra (ex: gráfico) vem aqui */}
-      {children && <div className="mt-4">{children}</div>}
+      {/* conteúdo expandido (ex: gráfico) */}
+      {children && (
+        <div
+          className={cn(
+            "transition-all duration-500 ease-in-out overflow-hidden",
+            isExpanded ? "max-h-screen mt-4" : "max-h-0"
+          )}
+        >
+          {children}
+        </div>
+      )}
     </Card>
   );
 }

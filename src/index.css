@@ -45,13 +45,17 @@
   .weather-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 40vw, 400px), 1fr));
-    min-height: 50rem;
+    min-height: 30rem;
     gap: 2rem;
     color: black;
   }
   
   .texto {
     color: rgb(125, 125, 125);
+  }
+
+  .footer {
+    background: rgb(15, 15, 15);
   }
 }
 
