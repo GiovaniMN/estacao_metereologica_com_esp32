@@ -10,7 +10,7 @@ interface WeatherChartProps {
 
 export default function WeatherChart({ data, dataKey, unit, stroke, title }: WeatherChartProps) {
   return (
-    <div className="glass-card p-4 rounded-lg shadow-md">
+    <div className="glass-card p-4 shadow-md">
       <h2 className="text-xl font-bold mb-4">{title}</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
