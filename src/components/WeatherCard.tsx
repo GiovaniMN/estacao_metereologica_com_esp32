@@ -96,7 +96,7 @@ export function WeatherCard({
       {children && (
         <div
           className={cn(
-            "transition-all duration-500 ease-in-out overflow-hidden",
+            "transition-all duration-500 ease-in-out overflow-hidden -ml-6",
             isExpanded ? "max-h-screen mt-4" : "max-h-0"
           )}
         >

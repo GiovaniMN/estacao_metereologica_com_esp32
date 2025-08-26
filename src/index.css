@@ -48,6 +48,7 @@
     min-height: 30rem;
     gap: 2rem;
     color: black;
+    align-items: start;
   }
   
   .texto {

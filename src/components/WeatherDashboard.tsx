@@ -13,41 +13,10 @@ interface WeatherData {
   altitude: number;
 }
 
-// Dados de exemplo para os gráficos
-const tempData = [
-  { time: "10:00", value: 24 },
-  { time: "10:10", value: 25 },
-  { time: "10:20", value: 26 },
-  { time: "10:30", value: 27 },
-];
-
-const humidityData = [
-  { time: "10:00", value: 60 },
-  { time: "10:10", value: 62 },
-  { time: "10:20", value: 61 },
-  { time: "10:30", value: 63 },
-];
-
-const pressureData = [
-  { time: "10:00", value: 1012.5 },
-  { time: "10:10", value: 1012.8 },
-  { time: "10:20", value: 1012.6 },
-  { time: "10:30", value: 1013.0 },
-];
-
-const altitudeData = [
-  { time: "10:00", value: 100 },
-  { time: "10:10", value: 105 },
-  { time: "10:20", value: 110 },
-  { time: "10:30", value: 115 },
-];
-
-const precipitationData = [
-  { time: "10:00", value: 0 },
-  { time: "10:10", value: 0 },
-  { time: "10:20", value: 2 },
-  { time: "10:30", value: 5 },
-];
+interface ChartData {
+  time: string;
+  value: number;
+}
 
 const chartColors = {
   temperature: "hsl(25, 85%, 55%)",
@@ -57,8 +26,17 @@ const chartColors = {
   precipitation: "hsl(220, 85%, 55%)",
 };
 
+const MAX_DATA_POINTS = 30;
+
 export function WeatherDashboard() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [historicalData, setHistoricalData] = useState<Record<keyof WeatherData, ChartData[]>>({
+    temperatura: [],
+    umidade: [],
+    chuva_mm: [],
+    pressao: [],
+    altitude: [],
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
@@ -72,6 +50,22 @@ export function WeatherDashboard() {
         if (data) {
           setWeatherData(data);
           setLastUpdate(new Date());
+
+          const now = new Date().toLocaleTimeString();
+          setHistoricalData((prev) => {
+            const newHistoricalData = { ...prev };
+            for (const key in data) {
+              if (Object.prototype.hasOwnProperty.call(newHistoricalData, key)) {
+                const newPoint = { time: now, value: data[key] };
+                const dataArray = [...newHistoricalData[key as keyof WeatherData], newPoint];
+                if (dataArray.length > MAX_DATA_POINTS) {
+                  dataArray.shift();
+                }
+                newHistoricalData[key as keyof WeatherData] = dataArray;
+              }
+            }
+            return newHistoricalData;
+          });
         }
         setIsLoading(false);
       },
@@ -120,7 +114,7 @@ export function WeatherDashboard() {
               isLoading={isLoading}
             >
               <WeatherChart
-                data={tempData}
+                data={historicalData.temperatura}
                 dataKey="value"
                 unit="°C"
                 stroke={chartColors.temperature}
@@ -137,7 +131,7 @@ export function WeatherDashboard() {
               isLoading={isLoading}
             >
               <WeatherChart
-                data={humidityData}
+                data={historicalData.umidade}
                 dataKey="value"
                 unit="%"
                 stroke={chartColors.humidity}
@@ -154,7 +148,7 @@ export function WeatherDashboard() {
               isLoading={isLoading}
             >
               <WeatherChart
-                data={pressureData}
+                data={historicalData.pressao}
                 dataKey="value"
                 unit="hPa"
                 stroke={chartColors.pressure}
@@ -171,7 +165,7 @@ export function WeatherDashboard() {
               isLoading={isLoading}
             >
               <WeatherChart
-                data={altitudeData}
+                data={historicalData.altitude}
                 dataKey="value"
                 unit="m"
                 stroke={chartColors.altitude}
@@ -188,7 +182,7 @@ export function WeatherDashboard() {
               isLoading={isLoading}
             >
               <WeatherChart
-                data={precipitationData}
+                data={historicalData.chuva_mm}
                 dataKey="value"
                 unit="mm"
                 stroke={chartColors.precipitation}
