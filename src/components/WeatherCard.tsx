@@ -40,6 +40,16 @@ export function WeatherCard({
     precipitation: "text-precipitation",
   };
 
+  const getTemperatureWarning = (temp: number) => {
+    if (temp <= 20) {
+      return "Frio";
+    }
+    if (temp >= 35) {
+      return "Quente";
+    }
+    return "Normal";
+  };
+
   return (
     <Card
       className={cn(
@@ -63,6 +73,11 @@ export function WeatherCard({
               </>
             )}
           </div>
+          {title.toLowerCase() === "temperatura" && !isLoading && (
+            <p className="text-sm text-muted-foreground">
+              {getTemperatureWarning(parseFloat(value))}
+            </p>
+          )}
         </div>
 
         <div className="flex items-center space-x-2">
