@@ -116,9 +116,9 @@ export function WeatherDashboard() {
               <WeatherChart
                 data={historicalData.temperatura}
                 dataKey="value"
-                unit="°C"
+                unit=""
                 stroke={chartColors.temperature}
-                title="Temperatura em Tempo Real"
+                title="Temperatura em Tempo Real (°C)"
               />
             </WeatherCard>
 
@@ -133,9 +133,9 @@ export function WeatherDashboard() {
               <WeatherChart
                 data={historicalData.umidade}
                 dataKey="value"
-                unit="%"
+                unit=""
                 stroke={chartColors.humidity}
-                title="Umidade em Tempo Real"
+                title="Umidade em Tempo Real (%)"
               />
             </WeatherCard>
 
@@ -150,9 +150,9 @@ export function WeatherDashboard() {
               <WeatherChart
                 data={historicalData.pressao}
                 dataKey="value"
-                unit="hPa"
+                unit=""
                 stroke={chartColors.pressure}
-                title="Pressão em Tempo Real"
+                title="Pressão em Tempo Real (hPa)"
               />
             </WeatherCard>
 
@@ -167,9 +167,9 @@ export function WeatherDashboard() {
               <WeatherChart
                 data={historicalData.altitude}
                 dataKey="value"
-                unit="m"
+                unit=""
                 stroke={chartColors.altitude}
-                title="Altitude em Tempo Real"
+                title="Altitude em Tempo Real (m)"
               />
             </WeatherCard>
 
@@ -184,9 +184,9 @@ export function WeatherDashboard() {
               <WeatherChart
                 data={historicalData.chuva_mm}
                 dataKey="value"
-                unit="mm"
+                unit=""
                 stroke={chartColors.precipitation}
-                title="Precipitação em Tempo Real"
+                title="Precipitação em Tempo Real (mm)"
               />
             </WeatherCard>
           </div>
