@@ -50,6 +50,48 @@ export function WeatherCard({
     return "Normal";
   };
 
+  const getHumidityWarning = (humidity: number) => {
+    if (humidity < 40) {
+      return "Baixa";
+    }
+    if (humidity > 60) {
+      return "Alta";
+    }
+    return "Normal";
+  };
+
+  const getPressureWarning = (press: number) => {
+    if (press > 980 && press < 1030) {
+      return "Normal";
+    }
+    if (press < 980 && press > 600) {
+      return "Atenção";
+    }
+    if (press < 600) {
+      return "Muito Baixa";
+    }
+  };
+
+  const getHeightWarning = (height: number) => {
+    if (height < 2400) {
+      return "Segura";
+    }
+    if (height > 2400 && height < 4500) {
+      return "Atenção";
+    }
+    return "Muito Alta";
+  };
+
+  const getRainWarning = (rain: number) => {
+    if (rain < 40) {
+      return "Baixa";
+    }
+    if (rain > 60) {
+      return "Alta";
+    }
+    return "Normal";
+  };
+
   return (
     <Card
       className={cn(
@@ -76,6 +118,26 @@ export function WeatherCard({
           {title.toLowerCase() === "temperatura" && !isLoading && (
             <p className="text-sm text-muted-foreground">
               {getTemperatureWarning(parseFloat(value))}
+            </p>
+          )}
+          {title.toLowerCase() === "umidade" && !isLoading && (
+            <p className="text-sm text-muted-foreground">
+              {getHumidityWarning(parseFloat(value))}
+            </p>
+          )}
+          {title.toLowerCase() === "pressão" && !isLoading && (
+            <p className="text-sm text-muted-foreground">
+              {getPressureWarning(parseFloat(value))}
+            </p>
+          )}
+          {title.toLowerCase() === "altitude" && !isLoading && (
+            <p className="text-sm text-muted-foreground">
+              {getHeightWarning(parseFloat(value))}
+            </p>
+          )}
+          {title.toLowerCase() === "precipitação" && !isLoading && (
+            <p className="text-sm text-muted-foreground">
+              {getRainWarning(parseFloat(value))}
             </p>
           )}
         </div>

@@ -141,7 +141,7 @@ export function WeatherDashboard() {
 
             <WeatherCard
               title="Pressão"
-              value={formatValue(weatherData?.pressao, 2)}
+              value={formatValue(weatherData?.pressao, 0)}
               unit="hPa"
               icon={Gauge}
               color="pressure"
@@ -175,7 +175,7 @@ export function WeatherDashboard() {
 
             <WeatherCard
               title="Precipitação"
-              value={formatValue(weatherData?.chuva_mm)}
+              value={formatValue(weatherData?.chuva_mm, 0)}
               unit="mm"
               icon={CloudRain}
               color="precipitation"
