@@ -61,10 +61,10 @@ export function WeatherCard({
   };
 
   const getPressureWarning = (press: number) => {
-    if (press > 980 && press < 1030) {
+    if (press >= 980 && press <= 1030 || press > 1030) {
       return "Normal";
     }
-    if (press < 980 && press > 600) {
+    if (press < 980 && press >= 600) {
       return "Atenção";
     }
     if (press < 600) {
